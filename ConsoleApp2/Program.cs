@@ -28,3 +28,30 @@ Console.WriteLine("Charmander health points: " + charmander.HealthPoints);
 
 //Console.WriteLine(charmander.Name);
 //Console.WriteLine(charmander.Type);
+
+Console.WriteLine("______________________");
+
+Trainer niklas = new Trainer();
+
+Pokemon psyduck = new Pokemon("Psyduck", PokeTypes.Psychic);
+Pokemon mewtwo = new Pokemon("Mewtwo", PokeTypes.Psychic);
+Pokemon squirtle = new Pokemon("Squirtle", PokeTypes.Water);
+
+niklas.Catch(psyduck);
+niklas.Catch(mewtwo);
+niklas.Catch(squirtle);
+niklas.Catch(pikachu);
+niklas.Catch(charmander);
+
+foreach (var pokemon in niklas.PokemonCollection)
+{
+    Console.WriteLine(pokemon.Name);
+}
+
+while (niklas.PokemonCollection.Count > 0)
+{
+    Console.WriteLine(niklas.PokemonCollection[0].Name);
+    niklas.Release(niklas.PokemonCollection[0]);
+}
+
+Console.WriteLine(niklas.PokemonCollection.Count);
