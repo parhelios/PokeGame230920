@@ -55,3 +55,37 @@ while (niklas.PokemonCollection.Count > 0)
 }
 
 Console.WriteLine(niklas.PokemonCollection.Count);
+
+Console.WriteLine("___________________________________");
+
+FirePokemon charmeleon = new FirePokemon();
+
+charmeleon.Name = "Charmeleon";
+
+niklas.Catch(charmeleon);
+
+WaterPokemon wartorlte = new WaterPokemon();
+
+wartorlte.Name = "Wartortle";
+
+niklas.Catch(wartorlte);
+
+MagmaPokemon magmar = new MagmaPokemon();
+magmar.Name = "Magmar";
+
+niklas.Catch(magmar);
+
+foreach (Pokemon pokemon in niklas.PokemonCollection)
+{
+    if(pokemon is FirePokemon fire)
+    {
+       fire.Ember();
+    }
+    else if (pokemon is WaterPokemon water) 
+    {
+        water.Bubble();
+    }
+
+    Console.WriteLine(pokemon.Name);
+    Console.WriteLine(pokemon.Type);
+}
