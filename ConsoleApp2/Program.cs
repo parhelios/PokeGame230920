@@ -25,3 +25,6 @@ foreach (Pokemon pokemon in niklas.PokemonCollection)
     Console.WriteLine(pokemon.Name);
     Console.WriteLine(pokemon.Type);
 }
+
+
+//Hej på dig
