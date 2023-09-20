@@ -1,6 +1,8 @@
-﻿namespace PokeGame
+﻿using PokemonCommon.Enums;
+
+namespace PokemonCommon.Pokemons
 {
-    internal class Pokemon
+    public class Pokemon
     {
         // Property för health points 
         // Databehållaren "bakom" en property kallas för fält.
@@ -15,13 +17,13 @@
 
         // Property för Name
         private string _name;
-        public string Name 
-        { 
-            get 
+        public string Name
+        {
+            get
             {
-                return _name; 
+                return _name;
             }
-            set 
+            set
             {
                 _name = value;
             }
@@ -39,7 +41,7 @@
         // En konstruktor är en metod som returnerar en ny instans av den typ den befinner sig i, returtyp och namn slås ihop.
         public Pokemon()
         {
-            
+
         }
 
         // Detta är ytterligare en konstruktor, denna gång med parametrar. En klass kan ha 0 ... n konstruktorer, bara alla har olika signatur.
@@ -50,11 +52,9 @@
         }
 
         // Detta är en instans-metod. Till skillnad från statiska metoder anropas dessa enbart genom objekt.
-        public void Attack(Pokemon target)
+        public virtual void Attack(Pokemon target)
         {
-            target.HealthPoints -= 10;
-            Console.WriteLine(_name + " Attacks " + target.Name);
-        }
 
+        }
     }
 }
