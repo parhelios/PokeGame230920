@@ -9,7 +9,7 @@ namespace PokemonCommon.Pokemons
 
         // Property för health points 
         // Databehållaren "bakom" en property kallas för fält.
-        private double _healthPoints = 100;
+        private double _healthPoints = 400;
         public double HealthPoints
         {
             // Get är en metod som anropas när värdet på en property ska läsas
@@ -53,7 +53,7 @@ namespace PokemonCommon.Pokemons
         }
 
         // Detta är ytterligare en konstruktor, denna gång med parametrar. En klass kan ha 0 ... n konstruktorer, bara alla har olika signatur.
-        public Pokemon(string name, PokeTypes[] types)
+        public Pokemon(string name, params PokeTypes[] types)
         {
             _name = name;
             _types = types.ToList();

@@ -2,59 +2,89 @@
 using PokemonCommon.Pokemons;
 using PokemonCommon.Pokemons.Attacks;
 
-namespace PokeGame;
+namespace PokemonCommon;
 
 public static class BattleEngine
 {
+    public static void BattleSimulator(Pokemon firstPokemon, Pokemon secondPokemon)
+    {
+        (Pokemon attacker, Pokemon defender) roles = (firstPokemon,  secondPokemon);
+        int roundTracker = 1;
+        
+        while (roles.attacker.HealthPoints >= 0 && roles.defender.HealthPoints >= 0)
+        {
+            var rand = new Random();
+            int randAttackIndex = rand.Next(0, roles.attacker.Attacks.Length);
+
+            Console.WriteLine($"[Round {roundTracker}: {firstPokemon.Name} HP: {firstPokemon.HealthPoints} || {secondPokemon.Name} HP: {secondPokemon.HealthPoints}]");
+            roundTracker++;
+            double firstPokeHp = roles.defender.HealthPoints;
+            MakeAttack(roles.defender, roles.attacker.Attacks[randAttackIndex]);
+
+            double damage = firstPokeHp - roles.defender.HealthPoints;
+            Console.WriteLine($"{roles.attacker.Name} attacks {roles.defender.Name} with {roles.attacker.Attacks[randAttackIndex].Name} and deals {damage} points of damage.");
+
+            roles = RoleSwitcher(roles.attacker, roles.defender);
+            Console.WriteLine("\n");
+
+        }
+        Console.WriteLine("---------------------------");
+
+        if (firstPokemon.HealthPoints > secondPokemon.HealthPoints) 
+        {
+            Console.WriteLine($"{firstPokemon.Name} destroyed {secondPokemon.Name}.");
+        }
+        else if (firstPokemon.HealthPoints < secondPokemon.HealthPoints) 
+        {
+            Console.WriteLine($"{secondPokemon.Name} destroyed {firstPokemon.Name}.");
+        }
+        else if (firstPokemon.HealthPoints == secondPokemon.HealthPoints)
+        {
+            Console.WriteLine("The battle was a tie.");
+        }
+
+    }
+
+    public static (Pokemon attacker, Pokemon defender) RoleSwitcher(Pokemon attacker, Pokemon defender)
+    {
+        (Pokemon attacker, Pokemon defender) roles = (defender, attacker);
+
+        return roles;
+    }
+
+
     // Detta är en statisk metod. Statiska metoder anropas via typen och inte via objekt.
     public static void MakeAttack(Pokemon target, Attack attack)
     {
-        target.HealthPoints -= attack.Damage;
-    }
+        Effectiveness effectiveness = CheckEffectiveness(attack.Type, target.Types.ToArray());
+        double modifier = (double)effectiveness / 100.0;
 
-    public static Effectiveness CheckEffectiveness(PokeTypes[] targetTypes, PokeTypes attackType)
+        target.HealthPoints -= attack.Damage * modifier;
+    }
+    public static Effectiveness CheckEffectiveness(PokeTypes attackType, PokeTypes[] targetTypes)
     {
-        switch (attackType)
+        return attackType switch
         {
-            case PokeTypes.Normal:
-                return NormalAttackEffectiveness(targetTypes);
-            case PokeTypes.Fire:
-                return FireAttackEffectiveness(targetTypes);
-            case PokeTypes.Water:
-                return WaterAttackEffectiveness(targetTypes);
-            case PokeTypes.Grass:
-                return GrassAttackEffectiveness(targetTypes);
-            case PokeTypes.Electric:
-                return ElectricAttackEffectiveness(targetTypes);
-            case PokeTypes.Ice:
-                return IceAttackEffectiveness(targetTypes);
-            case PokeTypes.Fighting:
-                return FightingAttackEffectiveness(targetTypes);
-            case PokeTypes.Poison:
-                return PoisonAttackEffectiveness(targetTypes);
-            case PokeTypes.Ground:
-                return GroundAttackEffectiveness(targetTypes);
-            case PokeTypes.Flying:
-                return FlyingAttackEffectiveness(targetTypes);
-            case PokeTypes.Psychic:
-                return PsychicAttackEffectiveness(targetTypes);
-            case PokeTypes.Bug:
-                return BugAttackEffectiveness(targetTypes);
-            case PokeTypes.Rock:
-                return RockAttackEffectiveness(targetTypes);
-            case PokeTypes.Ghost:
-                return GhostAttackEffectiveness(targetTypes);
-            case PokeTypes.Dragon:
-                return DragonAttackEffectiveness(targetTypes);
-            case PokeTypes.Dark:
-                return DarkAttackEffectiveness(targetTypes);
-            case PokeTypes.Steel:
-                return SteelAttackEffectiveness(targetTypes);
-            case PokeTypes.Fairy:
-                return FairyAttackEffectiveness(targetTypes);
-            default:
-                return Effectiveness.Normal;
-        }
+            PokeTypes.Normal => NormalAttackEffectiveness(targetTypes),
+            PokeTypes.Fire => FireAttackEffectiveness(targetTypes),
+            PokeTypes.Water => WaterAttackEffectiveness(targetTypes),
+            PokeTypes.Grass => GrassAttackEffectiveness(targetTypes),
+            PokeTypes.Electric => ElectricAttackEffectiveness(targetTypes),
+            PokeTypes.Ice => IceAttackEffectiveness(targetTypes),
+            PokeTypes.Fighting => FightingAttackEffectiveness(targetTypes),
+            PokeTypes.Poison => PoisonAttackEffectiveness(targetTypes),
+            PokeTypes.Ground => GroundAttackEffectiveness(targetTypes),
+            PokeTypes.Flying => FlyingAttackEffectiveness(targetTypes),
+            PokeTypes.Psychic => PsychicAttackEffectiveness(targetTypes),
+            PokeTypes.Bug => BugAttackEffectiveness(targetTypes),
+            PokeTypes.Rock => RockAttackEffectiveness(targetTypes),
+            PokeTypes.Ghost => GhostAttackEffectiveness(targetTypes),
+            PokeTypes.Dragon => DragonAttackEffectiveness(targetTypes),
+            PokeTypes.Dark => DarkAttackEffectiveness(targetTypes),
+            PokeTypes.Steel => SteelAttackEffectiveness(targetTypes),
+            PokeTypes.Fairy => FairyAttackEffectiveness(targetTypes),
+            _ => Effectiveness.Normal
+        };
     }
 
     #region EffectivenessChecks
