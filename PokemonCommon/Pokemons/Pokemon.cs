@@ -7,8 +7,8 @@ namespace PokemonCommon.Pokemons
     {
         // Property för health points 
         // Databehållaren "bakom" en property kallas för fält.
-        private int _healthPoints = 100;
-        public int HealthPoints
+        private double _healthPoints = 100;
+        public double HealthPoints
         {
             // Get är en metod som anropas när värdet på en property ska läsas
             get { return _healthPoints; }
