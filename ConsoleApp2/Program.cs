@@ -1,4 +1,5 @@
-﻿using PokemonCommon.Characters;
+﻿using PokeGame;
+using PokemonCommon.Characters;
 using PokemonCommon.Enums;
 using PokemonCommon.Pokemons;
 using PokemonCommon.Pokemons.Attacks;
@@ -7,17 +8,18 @@ using PokemonCommon.Pokemons.Attacks;
 Trainer ash = new Trainer("Ash");
 
 Pokemon sobble = new Pokemon("Sobble", PokeTypes.Water);
+Pokemon charmander = new Pokemon("Charmander", PokeTypes.Fire);
 
-Tackle tackle = new Tackle();
+Ember ember = new Ember();
+charmander.LearnAttack(ember, 0);
 
-sobble.LearnAttack(tackle, 0);
+WaterGun waterGun = new WaterGun();
+sobble.LearnAttack(waterGun, 0);
 
-foreach (var sobbleAttack in sobble.Attacks)
-{
-    if (sobbleAttack == null)
-    {
-        continue;
-    }
-    Console.WriteLine(sobbleAttack.Name);
-}
-// Detta är en statisk metod. Statiska metoder anropas via typen och inte via objekt.
+Console.WriteLine("--------------------------");
+
+Console.WriteLine(sobble.HealthPoints);
+
+BattleEngine.MakeAttack(sobble, ember);
+
+Console.WriteLine(sobble.HealthPoints);
