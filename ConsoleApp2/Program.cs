@@ -1,30 +1,23 @@
 ﻿using PokemonCommon.Characters;
+using PokemonCommon.Enums;
 using PokemonCommon.Pokemons;
+using PokemonCommon.Pokemons.Attacks;
 
-Trainer niklas = new Trainer();
 
-Console.WriteLine("___________________________________");
+Trainer ash = new Trainer("Ash");
 
-Pokemon charmeleon = new Pokemon();
+Pokemon sobble = new Pokemon("Sobble", PokeTypes.Water);
 
-charmeleon.Name = "Charmeleon";
+Tackle tackle = new Tackle();
 
-niklas.Catch(charmeleon);
+sobble.LearnAttack(tackle, 0);
 
-Pokemon wartorlte = new Pokemon();
-
-wartorlte.Name = "Wartortle";
-
-niklas.Catch(wartorlte);
-
-foreach (Pokemon pokemon in niklas.PokemonCollection)
+foreach (var sobbleAttack in sobble.Attacks)
 {
-    pokemon.Attack(wartorlte);
-
-
-    Console.WriteLine(pokemon.Name);
-    Console.WriteLine(pokemon.Type);
+    if (sobbleAttack == null)
+    {
+        continue;
+    }
+    Console.WriteLine(sobbleAttack.Name);
 }
-
-
-//Hej på dig
+// Detta är en statisk metod. Statiska metoder anropas via typen och inte via objekt.
