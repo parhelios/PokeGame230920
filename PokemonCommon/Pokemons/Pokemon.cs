@@ -31,11 +31,11 @@ namespace PokemonCommon.Pokemons
         }
 
         // Property för Type
-        private PokeTypes _type;
-        public PokeTypes Type
+        private List<PokeTypes> _types = new List<PokeTypes>();
+        public List<PokeTypes> Types
         {
-            get { return _type; }
-            set { _type = value; }
+            get { return _types; }
+            set { _types = value; }
         }
 
         public Attack[] Attacks { get; } = new Attack[4];
@@ -48,10 +48,10 @@ namespace PokemonCommon.Pokemons
         }
 
         // Detta är ytterligare en konstruktor, denna gång med parametrar. En klass kan ha 0 ... n konstruktorer, bara alla har olika signatur.
-        public Pokemon(string name, PokeTypes type)
+        public Pokemon(string name, PokeTypes types)
         {
             _name = name;
-            _type = type;
+            _types = types;
         }
 
         public void LearnAttack(Attack attack, int attackIndex)
