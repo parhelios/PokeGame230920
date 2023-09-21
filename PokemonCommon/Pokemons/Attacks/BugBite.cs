@@ -2,9 +2,9 @@
 
 namespace PokemonCommon.Pokemons.Attacks;
 
-public class Ember : Attack
+public class BugBite : Attack
 {
-    public Ember() : base(40, "Ember", PokeTypes.Fire)
+    public BugBite() : base(60, "Bug Bite", PokeTypes.Bug)
     {
     }
 }
