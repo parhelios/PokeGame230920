@@ -57,9 +57,12 @@ public static class BattleEngine
     public static void MakeAttack(Pokemon target, Attack attack)
     {
         Effectiveness effectiveness = CheckEffectiveness(attack.Type, target.Types.ToArray());
+        
         double modifier = (double)effectiveness / 100.0;
 
         target.HealthPoints -= attack.Damage * modifier;
+
+        BattleUI.DisplayDamageEffectiveness(effectiveness);
     }
     public static Effectiveness CheckEffectiveness(PokeTypes attackType, PokeTypes[] targetTypes)
     {
